@@ -1,0 +1,31 @@
+syntax = "proto3";
+option go_package = "./grpcYARA";
+
+service YARACheck {
+    rpc YARACheckSample (YARARequest) returns (YARAReply) {}
+}
+
+service YARAFileCheck {
+    rpc YARAFileCheckSample (YARAFileRequest) returns (YARAFileReply) {}
+}
+
+message YARARequest {
+    string param = 1;
+    repeated string rules = 2;
+}
+
+message YARAReply {
+    string result = 1;
+}
+
+message YARAFileRequest {
+    string sample = 1;
+    string rulesfile = 2;
+}
+
+message YARAFileReply {
+    string fileresult = 1;
+} 
+
+// python -m grpc_tool.protoc -I . --python_out=. --grpc_python_out=. yara.proto
+// protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative yara.proto

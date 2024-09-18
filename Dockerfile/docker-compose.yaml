@@ -1,0 +1,17 @@
+version: '2.2'
+
+services:
+  yara_grpc_server:
+    image: yara_grpc:v1
+    container_name: yara_grpc
+    restart: always
+    ports:
+      - "2066:2066"
+    volumes:
+      - /etc/locatime:/etc/locatime:ro
+      - /home/grpc_server/yara:/home/logs/yara
+      - /home/grpc_server/sample:/home/grpc_server/sample
+    # working_dir: /home/yaraß
+    environment:
+      TZ: Asia/Shanghai
+    command: ./yara_grpc_server
